@@ -181,7 +181,7 @@ export default function HistoryPage() {
             <div className="text-center py-8">
               <p className="text-gray-500 text-lg mb-2">📋 Nu există rapoarte</p>
               <p className="text-gray-400 text-sm">
-                Rapoartele generate vor apărea aici pentru următoarele 7 zile
+                Ultimele 7 rapoarte generate vor apărea aici
               </p>
             </div>
           ) : (
