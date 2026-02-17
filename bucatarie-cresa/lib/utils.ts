@@ -38,6 +38,16 @@ export function formatNumber(num: number, decimals: number = 2): string {
 /**
  * Clasă utilă pentru Tailwind (merge class names)
  */
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
+type ClassValue = string | undefined | null | false | Record<string, boolean>;
+
+export function cn(...classes: ClassValue[]): string {
+  return classes
+    .flatMap(c => {
+      if (typeof c === 'object' && c !== null) {
+        return Object.keys(c).filter(key => c[key]);
+      }
+      return c;
+    })
+    .filter(Boolean)
+    .join(' ');
 }
