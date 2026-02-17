@@ -1,6 +1,7 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { RezultatCalcul } from '@/lib/types';
+import { parseDate } from '@/lib/utils';
 
 const styles = StyleSheet.create({
   page: {
@@ -108,11 +109,6 @@ interface RaportPDFProps {
 
 export function RaportPDF({ data, numeBucatar, nrPortii, rezultat }: RaportPDFProps) {
   const numeCresa = process.env.NEXT_PUBLIC_NUME_CRESA || 'Creșa';
-  
-  const parseDate = (dateStr: string): Date => {
-    const parts = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
-    return new Date(parts + 'T00:00:00');
-  };
   
   const dataFormatata = parseDate(data).toLocaleDateString('ro-RO', {
     day: '2-digit',

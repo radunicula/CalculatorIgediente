@@ -10,6 +10,7 @@ import { calculeazaRaport } from '@/lib/calculations';
 import { Raport, RezultatCalcul, CategorieReteta, CATEGORII_MESE, CATEGORII_EMOJI } from '@/lib/types';
 import { RaportPDF } from '@/components/pdf/RaportPDF';
 import { pdf } from '@react-pdf/renderer';
+import { formatDateRomanian } from '@/lib/utils';
 
 const CATEGORII: CategorieReteta[] = ['mic_dejun', 'gustare1', 'ciorba', 'fel_doi', 'gustare2'];
 
@@ -39,15 +40,6 @@ export default function HistoryPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const formatDate = (dateStr: string): string => {
-    const date = new Date(dateStr + 'T00:00:00');
-    return date.toLocaleDateString('ro-RO', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric'
-    });
   };
 
   const getRetetaName = (raport: Raport, categorie: CategorieReteta): string => {
@@ -194,7 +186,7 @@ export default function HistoryPage() {
                         <div className="flex items-center gap-2">
                           <span className="text-2xl">📅</span>
                           <h3 className="text-lg font-semibold">
-                            {formatDate(raport.data)}
+                            {formatDateRomanian(raport.data)}
                           </h3>
                         </div>
                         <div className="text-sm text-gray-600 space-y-1 ml-9">
@@ -258,7 +250,7 @@ export default function HistoryPage() {
               <div className="grid grid-cols-3 gap-4 text-sm">
                 <div>
                   <p className="font-medium text-gray-700">Data</p>
-                  <p className="text-gray-900">{formatDate(selectedRaport.data)}</p>
+                  <p className="text-gray-900">{formatDateRomanian(selectedRaport.data)}</p>
                 </div>
                 <div>
                   <p className="font-medium text-gray-700">Bucătar</p>
