@@ -13,6 +13,7 @@ const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && open) {
+        e.preventDefault();
         onOpenChange(false);
       }
     };
