@@ -1,0 +1,102 @@
+[
+  {
+    "denumire": "Lapte integral 3.5%",
+    "unitate_baza": "ml",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "L",
+    "calorii_per_100": 64,
+    "proteine": 3.2,
+    "glucide": 4.8,
+    "grasimi": 3.5
+  },
+  {
+    "denumire": "Ouă",
+    "unitate_baza": "buc",
+    "cantitate_ambalaj": 1,
+    "unitate_raport": "Buc",
+    "calorii_per_100": 155,
+    "proteine": 13,
+    "glucide": 1.1,
+    "grasimi": 11
+  },
+  {
+    "denumire": "Făină albă",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 364,
+    "proteine": 10,
+    "glucide": 76,
+    "grasimi": 1
+  },
+  {
+    "denumire": "Piept de pui",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 165,
+    "proteine": 31,
+    "glucide": 0,
+    "grasimi": 3.6
+  },
+  {
+    "denumire": "Cartofi",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 77,
+    "proteine": 2,
+    "glucide": 17,
+    "grasimi": 0.1
+  },
+  {
+    "denumire": "Morcovi",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 41,
+    "proteine": 0.9,
+    "glucide": 10,
+    "grasimi": 0.2
+  },
+  {
+    "denumire": "Ceapă",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 40,
+    "proteine": 1.1,
+    "glucide": 9,
+    "grasimi": 0.1
+  },
+  {
+    "denumire": "Roșii",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 18,
+    "proteine": 0.9,
+    "glucide": 3.9,
+    "grasimi": 0.2
+  },
+  {
+    "denumire": "Orez",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 130,
+    "proteine": 2.7,
+    "glucide": 28,
+    "grasimi": 0.3
+  },
+  {
+    "denumire": "Paste făinoase",
+    "unitate_baza": "g",
+    "cantitate_ambalaj": 1000,
+    "unitate_raport": "Kg",
+    "calorii_per_100": 131,
+    "proteine": 5,
+    "glucide": 25,
+    "grasimi": 1.1
+  }
+]
