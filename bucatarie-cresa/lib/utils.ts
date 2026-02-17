@@ -1,21 +1,34 @@
 // lib/utils.ts
 
-import { format, parseISO } from 'date-fns';
-import { ro } from 'date-fns/locale';
+/**
+ * Parsează un date string (YYYY-MM-DD sau ISO format) într-un obiect Date
+ * Ensures the date is parsed in local timezone
+ */
+export function parseDate(dateStr: string): Date {
+  const datePortion = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+  return new Date(datePortion + 'T00:00:00');
+}
 
 /**
- * Formatează data pentru afișare
+ * Formatează data pentru afișare în română
  */
-export function formatDate(date: string | Date): string {
-  const d = typeof date === 'string' ? parseISO(date) : date;
-  return format(d, 'd MMMM yyyy', { locale: ro });
+export function formatDateRomanian(dateStr: string): string {
+  const date = parseDate(dateStr);
+  return date.toLocaleDateString('ro-RO', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
 }
 
 /**
  * Formatează data pentru input/API (YYYY-MM-DD)
  */
 export function formatDateISO(date: Date): string {
-  return format(date, 'yyyy-MM-dd');
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
@@ -38,6 +51,16 @@ export function formatNumber(num: number, decimals: number = 2): string {
 /**
  * Clasă utilă pentru Tailwind (merge class names)
  */
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
+type ClassValue = string | undefined | null | false | Record<string, boolean>;
+
+export function cn(...classes: ClassValue[]): string {
+  return classes
+    .flatMap(c => {
+      if (typeof c === 'object' && c !== null) {
+        return Object.keys(c).filter(key => c[key]);
+      }
+      return c;
+    })
+    .filter(Boolean)
+    .join(' ');
 }
