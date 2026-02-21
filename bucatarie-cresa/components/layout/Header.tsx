@@ -6,35 +6,35 @@ import Link from 'next/link';
 
 export function Header() {
   return (
-    <header className="border-b bg-white">
+    <header className="border-b bg-background">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-blue-600">🍽️</span>
+            <span className="text-2xl font-bold text-primary">🍽️</span>
             <span className="text-xl font-semibold">Bucătărie Creșă</span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
             <Link
               href="/"
-              className="text-sm font-medium transition-colors hover:text-blue-600"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Raport Zilnic
             </Link>
             <Link
               href="/retete"
-              className="text-sm font-medium transition-colors hover:text-blue-600"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Rețete
             </Link>
             <Link
               href="/ingrediente"
-              className="text-sm font-medium transition-colors hover:text-blue-600"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Ingrediente
             </Link>
             <Link
               href="/istoric"
-              className="text-sm font-medium transition-colors hover:text-blue-600"
+              className="text-sm font-medium transition-colors hover:text-primary"
             >
               Istoric
             </Link>

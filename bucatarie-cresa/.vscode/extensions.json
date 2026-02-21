@@ -1,0 +1,94 @@
+{
+    // Pune acest fișier în .vscode/extensions.json în proiectul tău
+    // sau în ~/.vscode/extensions.json pentru recomandări globale.
+    //
+    // VS Code va sugera automat instalarea acestor extensii
+    // când cineva deschide proiectul.
+    //
+    // Instalare rapidă din terminal (toate deodată):
+    //   cat extensions.json | grep '"' | grep -v '//' | grep -oP '(?<=")[^"]+(?=")' | xargs -I{} code --install-extension {}
+    //
+    // SAU instalare manuală: Ctrl+Shift+P → "Extensions: Install Extensions"
+    "recommendations": [
+        // ─────────────────────────────────────────
+        //  TEMĂ & ASPECT
+        // ─────────────────────────────────────────
+        // Tema One Dark Pro (identică cu Sublime)
+        "zhuangtongfa.material-theme",
+        // Iconițe fișiere moderne
+        "pkief.material-icon-theme",
+        // Bracket colorization suplimentar
+        "usernamehw.errorlens",
+        // ─────────────────────────────────────────
+        //  PYTHON
+        // ─────────────────────────────────────────
+        // Extension oficială Python (IntelliSense, debugging, etc.)
+        "ms-python.python",
+        // Pylance - language server avansat (autocompletare, type checking)
+        "ms-python.vscode-pylance",
+        // Black formatter
+        "ms-python.black-formatter",
+        // Isort - sortare automată imports
+        "ms-python.isort",
+        // Ruff - linter Python ultra-rapid (înlocuiește flake8 + pylint)
+        "charliermarsh.ruff",
+        // Jupyter notebooks
+        "ms-toolsai.jupyter",
+        // ─────────────────────────────────────────
+        //  JAVASCRIPT / TYPESCRIPT
+        // ─────────────────────────────────────────
+        // Prettier - formatter pentru JS, TS, JSON, CSS, HTML
+        "esbenp.prettier-vscode",
+        // ESLint - linting JS/TS în timp real
+        "dbaeumer.vscode-eslint",
+        // Import cost - arată cât de mare e un pachet importat
+        "wix.vscode-import-cost",
+        // Auto rename tag HTML/JSX
+        "formulahendry.auto-rename-tag",
+        // ─────────────────────────────────────────
+        //  GIT
+        // ─────────────────────────────────────────
+        // GitLens - supercharged Git (blame, history, etc.)
+        "eamodio.gitlens",
+        // Git Graph - vizualizare grafică a branch-urilor
+        "mhutchie.git-graph",
+        // ─────────────────────────────────────────
+        //  PRODUCTIVITATE GENERALĂ
+        // ─────────────────────────────────────────
+        // Error Lens - erori și warnings afișate inline pe linie
+        "usernamehw.errorlens",
+        // TODO Highlight - evidențiază TODO, FIXME, HACK în cod
+        "wayou.vscode-todo-highlight",
+        // Better Comments - colorează comentariile după tip (!, ?, TODO, *)
+        "aaron-bond.better-comments",
+        // Path Intellisense - autocomplete pentru căi de fișiere
+        "christian-kohler.path-intellisense",
+        // Auto Close Tag
+        "formulahendry.auto-close-tag",
+        // Bookmarks - marchează linii și navighează între ele
+        "alefragnani.bookmarks",
+        // Project Manager - switch rapid între proiecte
+        "alefragnani.project-manager",
+        // REST Client - testează API-uri direct din VS Code (alternativă Postman)
+        "humao.rest-client",
+        // Thunder Client - alternativă Postman cu UI mai bun
+        "rangav.vscode-thunder-client",
+        // DotENV - syntax highlighting pentru .env
+        "mikestead.dotenv",
+        // EditorConfig - respectă .editorconfig în proiect
+        "editorconfig.editorconfig",
+        // ─────────────────────────────────────────
+        //  FORMATE DE FIȘIERE
+        // ─────────────────────────────────────────
+        // YAML support avansat
+        "redhat.vscode-yaml",
+        // TOML support
+        "tamasfe.even-better-toml",
+        // Markdown preview avansat
+        "yzhang.markdown-all-in-one",
+        // CSV editor vizual
+        "mechatroner.rainbow-csv",
+        // XML tools
+        "dotjoshjohnson.xml"
+    ]
+}

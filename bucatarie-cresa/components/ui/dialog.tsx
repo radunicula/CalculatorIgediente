@@ -32,8 +32,8 @@ const Dialog = ({ open, onOpenChange, children }: DialogProps) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div 
-        className="fixed inset-0 bg-black/50" 
+      <div
+        className="fixed inset-0 bg-black/50"
         onClick={handleBackdropClick}
         aria-hidden="true"
       />
@@ -51,7 +51,7 @@ const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
       role="dialog"
       aria-modal="true"
       className={cn(
-        'bg-white rounded-lg shadow-lg p-6 w-full max-w-lg',
+        'bg-background border rounded-lg shadow-lg p-6 w-full max-w-lg',
         className
       )}
       {...props}

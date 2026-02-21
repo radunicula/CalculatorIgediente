@@ -45,7 +45,7 @@ export default function HistoryPage() {
   const getRetetaName = (raport: Raport, categorie: CategorieReteta): string => {
     const key = `${categorie}` as keyof Raport;
     const retetaData = raport[key];
-    
+
     if (retetaData && typeof retetaData === 'object' && 'denumire' in retetaData) {
       return (retetaData as { denumire: string }).denumire;
     }
@@ -149,13 +149,13 @@ export default function HistoryPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Istoric Rapoarte</h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-muted-foreground mt-2">
           Vezi rapoartele generate în ultimele 7 zile
         </p>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded">
           {error}
         </div>
       )}
@@ -166,20 +166,20 @@ export default function HistoryPage() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               Se încarcă rapoartele...
             </div>
           ) : rapoarte.length === 0 ? (
             <div className="text-center py-8">
-              <p className="text-gray-500 text-lg mb-2">📋 Nu există rapoarte</p>
-              <p className="text-gray-400 text-sm">
+              <p className="text-muted-foreground text-lg mb-2">📋 Nu există rapoarte</p>
+              <p className="text-muted-foreground/60 text-sm">
                 Ultimele 7 rapoarte generate vor apărea aici
               </p>
             </div>
           ) : (
             <div className="space-y-4">
               {rapoarte.map((raport) => (
-                <Card key={raport.id} className="border-l-4 border-l-blue-500">
+                <Card key={raport.id} className="border-l-4 border-l-primary">
                   <CardContent className="pt-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="space-y-2">
@@ -189,7 +189,7 @@ export default function HistoryPage() {
                             {formatDateRomanian(raport.data)}
                           </h3>
                         </div>
-                        <div className="text-sm text-gray-600 space-y-1 ml-9">
+                        <div className="text-sm text-muted-foreground space-y-1 ml-9">
                           <p>
                             <span className="font-medium">Bucătar:</span> {raport.nume_bucatar}
                           </p>
@@ -198,13 +198,13 @@ export default function HistoryPage() {
                           </p>
                         </div>
                         <div className="ml-9 mt-3">
-                          <p className="text-sm font-medium text-gray-700 mb-2">Rețete selectate:</p>
+                          <p className="text-sm font-medium mb-2">Rețete selectate:</p>
                           <div className="space-y-1">
                             {CATEGORII.map((categorie) => {
                               const nume = getRetetaName(raport, categorie);
                               if (nume === '-') return null;
                               return (
-                                <div key={categorie} className="text-sm text-gray-600">
+                                <div key={categorie} className="text-sm text-muted-foreground">
                                   <span className="mr-2">{CATEGORII_EMOJI[categorie]}</span>
                                   <span className="font-medium">{CATEGORII_MESE[categorie]}:</span>{' '}
                                   {nume}
@@ -249,16 +249,16 @@ export default function HistoryPage() {
             <div className="space-y-4">
               <div className="grid grid-cols-3 gap-4 text-sm">
                 <div>
-                  <p className="font-medium text-gray-700">Data</p>
-                  <p className="text-gray-900">{formatDateRomanian(selectedRaport.data)}</p>
+                  <p className="font-medium">Data</p>
+                  <p>{formatDateRomanian(selectedRaport.data)}</p>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-700">Bucătar</p>
-                  <p className="text-gray-900">{selectedRaport.nume_bucatar}</p>
+                  <p className="font-medium">Bucătar</p>
+                  <p>{selectedRaport.nume_bucatar}</p>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-700">Nr. Porții</p>
-                  <p className="text-gray-900">{selectedRaport.nr_portii}</p>
+                  <p className="font-medium">Nr. Porții</p>
+                  <p>{selectedRaport.nr_portii}</p>
                 </div>
               </div>
 
@@ -269,14 +269,14 @@ export default function HistoryPage() {
                     <div key={categorie} className="flex items-start gap-2">
                       <span>{CATEGORII_EMOJI[categorie]}</span>
                       <span className="font-medium min-w-[140px]">{CATEGORII_MESE[categorie]}:</span>
-                      <span className="text-gray-700">{getRetetaName(selectedRaport, categorie)}</span>
+                      <span className="text-muted-foreground">{getRetetaName(selectedRaport, categorie)}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {loadingCalcul ? (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground">
                   Se calculează ingredientele și macronutrienții...
                 </div>
               ) : rezultatCalcul ? (
@@ -330,7 +330,7 @@ export default function HistoryPage() {
                               <TableCell className="text-right">{masa.grasimi}</TableCell>
                             </TableRow>
                           ))}
-                          <TableRow className="font-bold bg-gray-50">
+                          <TableRow className="font-bold bg-muted/50">
                             <TableCell colSpan={2}>TOTAL</TableCell>
                             <TableCell className="text-right">{rezultatCalcul.total_macronutrienti.calorii}</TableCell>
                             <TableCell className="text-right">{rezultatCalcul.total_macronutrienti.proteine}</TableCell>

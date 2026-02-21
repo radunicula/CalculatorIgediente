@@ -112,7 +112,7 @@ export default function IngredientePage() {
 
   const handleDelete = async () => {
     if (!selectedIngredient) return;
-    
+
     setSubmitting(true);
     setError(null);
 
@@ -142,7 +142,7 @@ export default function IngredientePage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Ingrediente</h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-muted-foreground mt-2">
             Gestionează baza de date cu ingrediente
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function IngredientePage() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded">
           {error}
         </div>
       )}
@@ -163,11 +163,11 @@ export default function IngredientePage() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               Se încarcă...
             </div>
           ) : ingrediente.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               Nu există ingrediente în baza de date
             </div>
           ) : (
@@ -229,7 +229,7 @@ export default function IngredientePage() {
               <DialogHeader>
                 <DialogTitle>Confirmare ștergere</DialogTitle>
               </DialogHeader>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Ești sigur că vrei să ștergi ingredientul <strong>{selectedIngredient?.denumire}</strong>?
                 Această acțiune nu poate fi anulată.
               </p>
@@ -322,13 +322,13 @@ export default function IngredientePage() {
                 </div>
 
                 <div className="border-t pt-4">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">
+                  <h3 className="text-sm font-medium mb-3">
                     Valori nutriționale (per 100g/ml)
                   </h3>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         Calorii *
                       </label>
                       <Input
@@ -343,7 +343,7 @@ export default function IngredientePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         Proteine (g) *
                       </label>
                       <Input
@@ -358,7 +358,7 @@ export default function IngredientePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         Glucide (g) *
                       </label>
                       <Input
@@ -373,7 +373,7 @@ export default function IngredientePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         Grăsimi (g) *
                       </label>
                       <Input

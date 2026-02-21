@@ -27,6 +27,7 @@ import {
   CATEGORII_MESE,
   CATEGORII_EMOJI,
 } from '@/lib/types';
+import { getErrorMessage } from '@/lib/utils';
 
 type DialogMode = 'add' | 'edit' | 'delete' | 'ingredients' | null;
 
@@ -66,8 +67,11 @@ export default function RecipesPage() {
       setRetete(reteteData);
       setIngrediente(ingredienteData);
     } catch (err) {
-      setError('Eroare la încărcarea datelor');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-au putut încărca datele.');
+      setError(`Eroare la încărcarea datelor: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('loadData failed:', err);
+      }
     } finally {
       setLoading(false);
     }
@@ -108,8 +112,11 @@ export default function RecipesPage() {
       setDialogMode('ingredients');
       setDialogOpen(true);
     } catch (err) {
-      setError('Eroare la încărcarea ingredientelor rețetei');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-au putut încărca ingredientele rețetei.');
+      setError(`Eroare la încărcarea ingredientelor rețetei: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('openIngredientsDialog failed:', err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -129,8 +136,11 @@ export default function RecipesPage() {
       await loadData();
       setDialogOpen(false);
     } catch (err) {
-      setError('Eroare la salvarea rețetei');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut salva rețeta.');
+      setError(`Eroare la salvarea rețetei: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleSubmit failed:', err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -147,8 +157,11 @@ export default function RecipesPage() {
       await loadData();
       setDialogOpen(false);
     } catch (err) {
-      setError('Eroare la ștergerea rețetei');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut șterge rețeta.');
+      setError(`Eroare la ștergerea rețetei: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleDelete failed:', err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -173,8 +186,11 @@ export default function RecipesPage() {
       setRetetaCuIngrediente(updatedReteta);
       setNewIngredient({ ingredient_id: 0, cantitate_per_portie: 0 });
     } catch (err) {
-      setError('Eroare la adăugarea ingredientului');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut adăuga ingredientul.');
+      setError(`Eroare la adăugarea ingredientului: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleAddIngredient failed:', err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -191,8 +207,11 @@ export default function RecipesPage() {
       const updatedReteta = await getRetetaCuIngrediente(selectedReteta.id);
       setRetetaCuIngrediente(updatedReteta);
     } catch (err) {
-      setError('Eroare la ștergerea ingredientului');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut șterge ingredientul.');
+      setError(`Eroare la ștergerea ingredientului: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleRemoveIngredient failed:', err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -209,8 +228,11 @@ export default function RecipesPage() {
       const updatedReteta = await getRetetaCuIngrediente(selectedReteta.id);
       setRetetaCuIngrediente(updatedReteta);
     } catch (err) {
-      setError('Eroare la actualizarea cantității');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut actualiza cantitatea.');
+      setError(`Eroare la actualizarea cantității: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleUpdateIngredient failed:', err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -251,7 +273,7 @@ export default function RecipesPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Rețete</h1>
-          <p className="text-gray-600 mt-2">Gestionează rețetele disponibile</p>
+          <p className="text-muted-foreground mt-2">Gestionează rețetele disponibile</p>
         </div>
         <Button onClick={openAddDialog} aria-label="Adaugă rețetă nouă">
           ➕ Adaugă rețetă
@@ -259,13 +281,13 @@ export default function RecipesPage() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded">
           {error}
         </div>
       )}
 
       {loading ? (
-        <div className="text-center py-8 text-gray-500">Se încarcă...</div>
+        <div className="text-center py-8 text-muted-foreground">Se încarcă...</div>
       ) : (
         <div className="space-y-6">
           {categorii.map((categorie) => {
@@ -330,7 +352,7 @@ export default function RecipesPage() {
 
           {retete.length === 0 && (
             <Card>
-              <CardContent className="text-center py-8 text-gray-500">
+              <CardContent className="text-center py-8 text-muted-foreground">
                 Nu există rețete în baza de date
               </CardContent>
             </Card>
@@ -345,7 +367,7 @@ export default function RecipesPage() {
               <DialogHeader>
                 <DialogTitle>Confirmare ștergere</DialogTitle>
               </DialogHeader>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Ești sigur că vrei să ștergi rețeta <strong>{selectedReteta?.denumire}</strong>?
                 Această acțiune nu poate fi anulată.
               </p>
@@ -411,16 +433,16 @@ export default function RecipesPage() {
                     </Table>
                   </div>
                 ) : (
-                  <p className="text-gray-500 text-center py-4">
+                  <p className="text-muted-foreground text-center py-4">
                     Nu există ingrediente adăugate în această rețetă
                   </p>
                 )}
 
                 <div className="border-t pt-4">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">Adaugă ingredient</h3>
+                  <h3 className="text-sm font-medium mb-3">Adaugă ingredient</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         Ingredient
                       </label>
                       <Select
@@ -442,7 +464,7 @@ export default function RecipesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         Cantitate/porție ({selectedIngredientUnit})
                       </label>
                       <div className="flex gap-2">
@@ -482,7 +504,7 @@ export default function RecipesPage() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium mb-1">
                     Denumire *
                   </label>
                   <Input
@@ -495,7 +517,7 @@ export default function RecipesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium mb-1">
                     Categorie *
                   </label>
                   <Select name="categorie" value={formData.categorie} onChange={handleInputChange} required>

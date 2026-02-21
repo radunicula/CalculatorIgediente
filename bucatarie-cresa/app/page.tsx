@@ -8,13 +8,14 @@ import { Select } from '@/components/ui/select';
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/components/ui/table';
 import { getRetete, getRetetaCuIngrediente, saveRaport } from '@/lib/supabase';
 import { calculeazaRaport } from '@/lib/calculations';
-import { 
-  Reteta, 
-  RaportFormState, 
-  RezultatCalcul, 
+import { getErrorMessage } from '@/lib/utils';
+import {
+  Reteta,
+  RaportFormState,
+  RezultatCalcul,
   CategorieReteta,
   CATEGORII_MESE,
-  CATEGORII_EMOJI 
+  CATEGORII_EMOJI
 } from '@/lib/types';
 import { RaportPDF } from '@/components/pdf/RaportPDF';
 import { pdf } from '@react-pdf/renderer';
@@ -56,7 +57,7 @@ export default function Home() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const reteteListe = await Promise.all(
         CATEGORII.map(categorie => getRetete(categorie))
       );
@@ -71,8 +72,11 @@ export default function Home() {
 
       setRetete(newRetete);
     } catch (err) {
-      setError('Eroare la încărcarea rețetelor');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-au putut încărca rețetele.');
+      setError(`Eroare la încărcarea rețetelor: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('loadRetete failed:', err);
+      }
     } finally {
       setLoading(false);
     }
@@ -82,9 +86,9 @@ export default function Home() {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'nr_portii' ? (parseInt(value) || 1) : 
-              name.endsWith('_id') ? (value === '' ? null : parseInt(value)) : 
-              value
+      [name]: name === 'nr_portii' ? (parseInt(value) || 1) :
+        name.endsWith('_id') ? (value === '' ? null : parseInt(value)) :
+          value
     }));
   };
 
@@ -113,7 +117,7 @@ export default function Home() {
 
     try {
       setCalculating(true);
-      
+
       const reteteMese = await Promise.all(
         CATEGORII.map(async (categorie) => {
           const retetaId = formData[`${categorie}_id` as keyof RaportFormState];
@@ -128,8 +132,11 @@ export default function Home() {
       const rezultatCalcul = calculeazaRaport(reteteMese, formData.nr_portii);
       setRezultat(rezultatCalcul);
     } catch (err) {
-      setError('Eroare la calcularea raportului');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut calcula raportul.');
+      setError(`Eroare la calcularea raportului: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleCalculate failed:', err);
+      }
     } finally {
       setCalculating(false);
     }
@@ -155,8 +162,11 @@ export default function Home() {
       });
       setSuccessMessage('Raport salvat cu succes!');
     } catch (err) {
-      setError('Eroare la salvarea raportului');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut salva raportul.');
+      setError(`Eroare la salvarea raportului: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleSaveRaport failed:', err);
+      }
     } finally {
       setSaving(false);
     }
@@ -182,8 +192,11 @@ export default function Home() {
       link.click();
       URL.revokeObjectURL(url);
     } catch (err) {
-      setError('Eroare la generarea PDF-ului');
-      console.error(err);
+      const errorMessage = getErrorMessage(err, 'Nu s-a putut genera PDF-ul.');
+      setError(`Eroare la generarea PDF-ului: ${errorMessage}`);
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('handleGeneratePDF failed:', err);
+      }
     }
   };
 
@@ -191,19 +204,19 @@ export default function Home() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Raport Zilnic Bucătărie</h1>
-        <p className="text-gray-600 mt-2">
+        <p className="text-muted-foreground mt-2">
           Generează raportul zilnic cu ingredientele folosite și macronutrienții
         </p>
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded">
           {error}
         </div>
       )}
 
       {successMessage && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+        <div className="bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 px-4 py-3 rounded">
           {successMessage}
         </div>
       )}
@@ -214,14 +227,14 @@ export default function Home() {
         </CardHeader>
         <CardContent>
           {loading ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               Se încarcă...
             </div>
           ) : (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium mb-1">
                     Data *
                   </label>
                   <Input
@@ -234,7 +247,7 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium mb-1">
                     Nume Bucătar *
                   </label>
                   <Input
@@ -248,7 +261,7 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium mb-1">
                     Nr. Porții *
                   </label>
                   <Input
@@ -267,7 +280,7 @@ export default function Home() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {CATEGORII.map((categorie) => (
                     <div key={categorie}>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium mb-1">
                         {CATEGORII_EMOJI[categorie]} {CATEGORII_MESE[categorie]}
                       </label>
                       <Select
@@ -356,7 +369,7 @@ export default function Home() {
                       <TableCell className="text-right">{masa.grasimi}</TableCell>
                     </TableRow>
                   ))}
-                  <TableRow className="font-bold bg-gray-50">
+                  <TableRow className="font-bold bg-muted/50">
                     <TableCell colSpan={2}>TOTAL</TableCell>
                     <TableCell className="text-right">{rezultat.total_macronutrienti.calorii}</TableCell>
                     <TableCell className="text-right">{rezultat.total_macronutrienti.proteine}</TableCell>

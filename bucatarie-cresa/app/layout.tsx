@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro">
-      <body className="antialiased bg-gray-50 font-sans">
+      <body className="antialiased font-sans">
         <Header />
         <main className="container mx-auto px-4 py-8">
           {children}

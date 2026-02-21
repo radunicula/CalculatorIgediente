@@ -64,3 +64,27 @@ export function cn(...classes: ClassValue[]): string {
     .filter(Boolean)
     .join(' ');
 }
+
+/**
+ * Extrage un mesaj lizibil din erori necunoscute (Supabase, JS, etc.)
+ */
+export function getErrorMessage(error: unknown, fallback: string = 'A apărut o eroare neașteptată'): string {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  if (typeof error === 'object' && error !== null) {
+    const maybeMessage = 'message' in error ? (error as { message?: unknown }).message : undefined;
+    const maybeDetails = 'details' in error ? (error as { details?: unknown }).details : undefined;
+    const maybeCode = 'code' in error ? (error as { code?: unknown }).code : undefined;
+
+    const parts = [maybeCode, maybeMessage, maybeDetails]
+      .filter((part): part is string => typeof part === 'string' && part.trim().length > 0);
+
+    if (parts.length > 0) {
+      return parts.join(' - ');
+    }
+  }
+
+  return fallback;
+}
